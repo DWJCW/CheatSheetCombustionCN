@@ -9,6 +9,7 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{wrapfig}
 
 
 % To make this come out properly in landscape mode, do one of the following
@@ -237,6 +238,7 @@ $$
 \end{equation}
 
 \begin{figure}[H]
+    \centering
     \includegraphics[width=.23\textwidth]{img/ad_T.png}
 \end{figure}
 
@@ -416,6 +418,15 @@ $$
 \subsection{传质的应用实例}
 \subsubsection{斯蒂芬问题}
 
+我们考虑液体A在玻璃圆通内保持一个固定的高度，假设B在A中不可溶解，由此圆柱中存在着一个B的滞止层。对于这个问题，A的质量通量为：
+
+\begin{equation}
+    \dot{m}''_A = \frac{\rho \mathcal{D}_\mathrm{AB}}{L}\ln\left(\frac{1-Y_{A,\infty}}{1-Y_{A,i}}\right)
+\end{equation}
+
+\begin{wrapfigure}{l}{.15\textwidth}
+    \includegraphics[width=.15\textwidth]{img/stefan.png}
+\end{wrapfigure}
 
 \end{multicols}
 

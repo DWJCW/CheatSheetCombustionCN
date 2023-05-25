@@ -5,6 +5,7 @@
 !.gitignore
 !*.tex
 !*.pdf
+!*.md
 
 # ...and these directories
 !/img/
