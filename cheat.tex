@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{wrapfig}
+\usepackage{xcolor}
 
 
 % To make this come out properly in landscape mode, do one of the following
@@ -276,7 +277,7 @@ $$
 对于开口系统，我们采用吉布斯函数，它的定义为 $G\equiv H-TS$。这是第二定律表示为$(\mathrm{d}G)_{T,P,m}\le 0$的形式。在平衡时，开口系统的第二定律可以写作$(\mathrm{d}G)_{T,P,m}=0$。
 
 {
-    \tiny
+    \scriptsize\color{gray}
     考虑广延量，理想气体的吉布斯方程为：
     \[
         G_{\mathrm{mix}}=\sum N_{i}\overline{{{g}}}_{i,T}=\sum N_{i}\bigl[\bar{g}_{i,T}^{0}+R_{u}T\ln\bigl(P_{i}/P^{0}\bigr)\bigr]
@@ -326,7 +327,7 @@ $$
 \end{itemize}
 
 {
-    \tiny
+    \scriptsize
     如果将\(\Delta G_T^0\)写作：
     \[
         \Delta G_T^0 = \Delta H^0 - T\Delta S^0
@@ -418,15 +419,132 @@ $$
 \subsection{传质的应用实例}
 \subsubsection{斯蒂芬问题}
 
-我们考虑液体A在玻璃圆通内保持一个固定的高度，假设B在A中不可溶解，由此圆柱中存在着一个B的滞止层。对于这个问题，A的质量通量为：
-
-\begin{equation}
-    \dot{m}''_A = \frac{\rho \mathcal{D}_\mathrm{AB}}{L}\ln\left(\frac{1-Y_{A,\infty}}{1-Y_{A,i}}\right)
-\end{equation}
-
 \begin{wrapfigure}{l}{.15\textwidth}
     \includegraphics[width=.15\textwidth]{img/stefan.png}
 \end{wrapfigure}
+
+我们考虑液体A在玻璃圆通内保持一个固定的高度，假设B在A中不可溶解，由此圆柱中存在着一个B的滞止层。对于这个问题，A的质量通量为：
+
+\begin{equation}\tiny
+    \dot{m}''_A = \frac{\rho \mathcal{D}_\mathrm{AB}}{L}\ln\left(\frac{1-Y_{A,\infty}}{1-Y_{A,i}}\right)
+\end{equation}
+
+推导过程如下：
+{\scriptsize\color{gray}
+
+由于B的量通量为0，基于菲克定律式~\ref{equ:fick_law_1d}，我们可以写出
+\[
+    \dot{m}_A'' = Y_A\dot{m}_A'' - \rho \mathcal{D}_\mathrm{AB}\frac{\dd Y_A}{\dd x}
+\]对之整理并分离变量：
+\[
+    -{\frac{\dot{m}_{\mathrm{A}}^{\prime\prime}}{\rho D_{\mathrm{AB}}}}\mathrm{d}x={\frac{\mathrm{d}Y_{\mathrm{A}}}{1-Y_{\mathrm{A}}}}.
+\]
+积分解得：
+\[
+    -{\frac{\bar{m}_{\mathrm{A}}^{\prime\prime}}{\rho D_{\mathrm{AB}}}}\,x=-\ln[1-Y_{\mathrm{A}}]+C,
+\]结合已知边界条件，\(Y_A(x=0)=Y_{A,i}, Y_A(x=L)=Y_{A,\infty}\)。}
+
+就可以写出质量分数的计算公式：
+
+\begin{equation}
+    Y_A(x) = 1 - (1-Y_{A,i})\exp\left(\frac{\dot{m}_A'' x}{\rho\mathcal{D}_\mathrm{AB}}\right)
+\end{equation}
+
+\subsubsection{液-气界面的边界条件}
+
+不难写出\(\chi_{A,i} = P_\mathrm{sat}/P\)，由此可以确定质量分数应该为：
+\begin{equation}
+    Y_{A,i} = \frac{P_\mathrm{sat}(T_\mathrm{liq, i})}{P}\frac{\mathrm{MW}}{\mathrm{MW}_\mathrm{mix, i}}
+\end{equation}
+
+认为液-气界面上维持温度的连续性，那么：
+\[
+    T_\mathrm{liq,i}(x=0^-) = T_\mathrm{vap, i}(x=0^+) = T(0)
+\]
+
+
+\subsubsection{液滴蒸发}
+
+\textbf{假设}：
+{\scriptsize
+    \begin{enumerate}
+        \item 蒸发过程是准稳态的。
+        \item 液滴的温度均一，进而假设温度为低于液体的沸点的某一定值。
+        \item 液滴表面蒸气的质量分数由液滴温度下的液体-蒸气平衡确定。
+        \item 假设所有的热物理参数——特别是\(\rho\mathcal{D}\)——是常数。
+    \end{enumerate}
+}
+
+\textbf{蒸发速率}：
+
+从某种意义上说，这里的液滴蒸发问题其实就是一个加强版的球状的斯蒂芬流。定义\textbf{传质数}\(B_Y\)为：
+\begin{equation}
+    B_Y = \frac{Y_{A,s}-Y_{A,\infty}}{1 - Y_{A,s}}
+\end{equation}
+蒸发速率可以被写作：
+\begin{equation}\label{equ:evo_rate}
+    \dot{m}_A''' = {4\pi r_s \rho \mathcal{D}_\mathrm{AB}}\ln({1+B_Y})
+\end{equation}
+
+具体的推倒过程如下所示：
+
+{
+    \scriptsize\color{gray}
+    首先，液滴的蒸发速率可以被写作
+    \[
+        \dot{m}(r) = 4\pi r^2 \dot{m}''
+    \]
+    将之带入到菲克定律~\ref{equ:fick_law_1d}的表达式中，并且认为另一组份滞止，可以得到：
+    \[
+        \dot{m}_A'' = Y_A\dot{m}_A'' - \rho\mathcal{D}_\mathrm{AB}\frac{\dd Y_A}{\dd r}
+    \]
+    代入蒸发速率的表达式，并且整理，可以得到：
+    \[
+        \dot{m}=-4\pi r^2 \frac{\rho \mathcal{D}_\mathrm{AB}}{1-Y_A}\frac{\dd Y_A}{\dd r}
+    \]
+    首先代入液滴表面的边界条件\(Y_A(r=r_s)=Y_{A,s}\)，可以得到：
+    \[
+        Y_{\mathrm{A}}(r)=1-{\frac{(1-Y_{\mathrm{A,s}})\exp[-\dot{m}/(4\pi\rho \mathcal{D}_{\mathrm{AB}}r)]}{\exp[-\dot{m}/(4\pi\rho \mathcal{D}_{\mathrm{AB}}r_{s})]}}.
+    \]
+    再代入\(r\to\infty\)时，\(Y_A=Y_{A,\infty}\)，可以解得蒸发速率\(\dot{m}\)的最终结果。
+}
+
+\textbf{液滴质量守恒}：
+
+显然，液滴质量和蒸发速率之间的关系是：
+
+\begin{equation}
+    \frac{\dd m_d}{\dd t}=-\dot{m}
+\end{equation}
+液滴的质量可以写作：
+\begin{equation}
+    m_d = \rho_l V = \rho_l \pi D^3/6
+\end{equation}
+将这两个式子代入到液滴蒸发速率的公式中（式~\ref{equ:evo_rate}），化简唯粉整理，可以得到：
+\begin{equation}
+    \frac{\mathrm{d}D}{\mathrm{d}t}=-\frac{4\rho \mathcal{D}_\mathrm{AB}}{\rho_{i}D}\mathrm{ln}(1+B_{Y}).
+\end{equation}
+或者是：
+\begin{equation}
+    {\frac{\mathrm{d}D^{2}}{\mathrm{d}t}}=-{\frac{8\rho \mathcal{D}_{\mathrm{AB}}}{\rho_{l}}}\ln(1+B_{Y}).
+\end{equation}
+
+我们将等式的右边定义为\textbf{蒸发常数}:
+\begin{equation}
+    K = {\frac{8\rho \mathcal{D}_{\mathrm{AB}}}{\rho_{l}}}\ln(1+B_{Y})
+\end{equation}
+
+由此可以得到\(D\)随时间\(t\)的关系式：
+\begin{equation}
+    D^2(t)=D_0^2 - Kt
+\end{equation}
+这就是\textbf{\(D^2\)定律}。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.3\textwidth]{img/d2.png}
+\end{figure}
+
 
 \end{multicols}
 
