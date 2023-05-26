@@ -1,4 +1,4 @@
-\documentclass[10pt,landscape]{article}
+\documentclass[8pt,landscape]{article}
 \usepackage{ctex}
 \usepackage{multicol}
 \usepackage{calc}
@@ -112,18 +112,14 @@
 $R_u=8315~\mathrm{J/(kmol\cdot K)}$, $R=R_u/\mathrm{MW}$, $\rho=1/v=m/V$.
 
 \subsubsection{状态热方程}
-
 \begin{eqnarray}
     u&=&u(T,v)\\
     h&=&h(T, P)
 \end{eqnarray}
-
 \begin{eqnarray}
     \mathrm{d}u&=&\left({\frac{\partial u}{\partial T}}\right)_{v}\mathrm{d}T+\left({\frac{\partial u}{\partial v}}\right)_{T}\mathrm{d}v\\ 
     \mathrm{d}h&=&\left({\frac{\partial h}{\partial T}}\right)_{p}\mathrm{d}T+\left({\frac{\partial h}{\partial P}}\right)_{T}\mathrm{d}P
 \end{eqnarray}
-
-
 \begin{eqnarray}
     c_{v}&\equiv&\left(\frac{\partial u}{\partial T}\right)_{v}\\
 c_{p}&\equiv&\left({\frac{\partial h}{\partial T}}\right)_{P}
@@ -545,6 +541,147 @@ $$
     \includegraphics[width=.3\textwidth]{img/d2.png}
 \end{figure}
 
+\section{化学动力学}
+\subsection{概述}
+\subsection{总包反应与基元反应}
+燃料和氧化剂的\textbf{总包反应机理}可以被写作：
+\begin{equation}
+    \mathrm{F} + a\mathrm{Ox}\leftarrow b\mathrm{Pr}
+\end{equation}
+
+反应速率可以被表达为：
+
+\begin{equation}
+    {\frac{\mathrm{d}[X_{F}]}{\mathrm{d}t}}=-k_{G}(T)[X_{F}]^{n}[X_{O x}]^{m},
+\end{equation}其中\(k_G\)为\textbf{总包反应速率常数}，\(n\), \(m\)为\textbf{反应级数}。这个式子只在特定的温度和压力范围适用，并且与用于确定反应速率参数的实验装置有关。为了描述一个总体反应所需要的一组基元反应称为\textbf{反应机理}.
+
+\textbf{基团}或\textbf{自由基}是指具有反应性的分子或原子，拥有不成对的电子。
+
+\subsection{基元反应速率}
+\subsubsection{双分子反应和碰撞理论}
+大部分的基元反应是\textbf{双分子反应}:
+
+\begin{equation}
+    \mathrm{A}+\mathrm{B}\rightarrow \mathrm{C} + \mathrm{D}
+\end{equation}
+
+反应速率可以写作:
+\begin{equation}
+    {\frac{\mathrm{d}[{A}]}{\mathrm{d}t}}=-k_{\mathrm{bimolec}}[{A}][{B}].
+\end{equation}
+如果研究问题的温度范围不是很大，双分子反应速率常数可以用经验的阿累尼乌斯形式（Arrheniusform）来表示，即：
+\begin{equation}
+    k(T) = A\exp(-E_A/R_u T)
+\end{equation}这里的\(A\)是\textbf{指前因子}或\textbf{频率因子}。严格来说它与\(T^{1/2}\)相关。
+
+也有写作：
+\begin{equation}
+    k(T)=A T^{b}\exp(-E_{A}/R_{u}T),
+\end{equation}
+
+\subsubsection{其他基元反应}
+
+\textbf{单分子反应：}
+\begin{equation}
+    \mathrm{A\rightarrow B}
+\end{equation}
+或者：
+\begin{equation}
+    \mathrm{A}\rightarrow \mathrm{B} + \mathrm{C}
+\end{equation}
+
+在高压的情况下,这个反应是一阶的，反应速率为：
+\begin{equation}
+    \frac{\dd \mathrm{A}}{\dd t}=-k_{\mathrm{uni}}[\mathrm{A}]
+\end{equation}
+在低压时，它还与任意分子的浓度有关，
+\begin{equation}
+    \frac{\dd[\mathrm{A}]}{\dd t}=-k[\mathrm{A}][\mathrm{M}]
+\end{equation}这里的M是任意分子。
+
+\textbf{三分子反应}
+\begin{equation}
+    \mathrm{A + B + M \rightarrow C + M}
+\end{equation}
+
+这里的M同样是任意分子。
+
+\textbf{第三体的作用}：在自由基-自由基反应中，第三体的作用是携带走在形成稳定的组分时释放出来的能量。在碰撞的过程中，新形成的分子的内能传递给第三体 M,成为 M 的动能。没有这一能量的传递，新形成的分子将重新离解为组成它的原子。
+
+\subsection{多步反应机理的反应速率}
+\subsubsection{净生成率}
+\subsubsection{净生成率的简洁表达式}
+对于反应机理，表达式可以写为
+\begin{equation}
+    \sum_{j=1}^{N}\nu_{j}^{\prime}\,X_{j}\Leftrightarrow\sum_{j=1}^{N}\nu_{j i}^{\prime\prime}\,X_{j}\quad{\mathrm{for}}\quad i=1,2,\dots,L\,,
+\end{equation}
+净生成率被写作：
+\begin{equation}
+    \dot{\omega_j}=\sum_{i=1}^L\nu_{ji} q_i\quad{\mathrm{for}}\quad j=1,2,\dots,N\,,
+\end{equation}
+\begin{equation}
+    \nu_{ji} = (\nu_{ji}'' - \nu_{ji}')
+\end{equation}
+\begin{equation}
+    q_i = k_{fi}\Pi_{j=1}^N[X_j]^{\nu_{ji}'} - k_{ri}\Pi_{j=1}^N[X_j]^{\nu_{ji}''}
+\end{equation}
+
+\subsubsection{反应速率常数与平衡常数之间的关系}
+速率常数不好测，基于热力学测量与计算的平衡常数好测。
+
+\begin{equation}
+    \frac{k_f(T)}{k_r(T)} = K_c(T)
+\end{equation}
+
+这里的\(K_c\)是基于浓度的平衡常数：
+\[K_p = K_c (R_u T/ P^0)^{c+d+\cdots-a-b-\cdots}=K_c (R_u T/ P^0)^{\sum \nu''-\sum \nu'}\]
+
+实际操作中，测定好测的正反应速率常数，然后推算出逆反应的速率常数。
+
+\subsubsection{稳态近似}
+在燃烧过程所涉及的许多化学反应系统中，会形成许多高反应性的中间产物，即自由基。针对这类中间产物或自由基，采用稳态近似，就可以大大减少对这些系统的分析工作。从物理上讲，这些自由基的浓度在一个迅速的初始增长后，其消耗与形成的速率就很快趋近，即生成和消耗速率是相等的。
+
+\subsubsection{单分子反应机理}
+
+\subsubsection{链式反应和链式分支反应}
+
+对于总包反应
+
+\begin{equation}
+    \mathrm{A_2+B_2}\rightarrow 2\mathrm{AB}
+\end{equation}
+
+\textbf{链的激发反应}为：
+\begin{equation}
+    \mathrm{A_2+M}\overset{k_1}{\longrightarrow} \mathrm{A+A+M}
+\end{equation}
+\textbf{链的传播反应}为：
+\begin{eqnarray}
+    \mathrm{A+B_2\overset{k_2}{\longrightarrow}AB + B}\\
+    \mathrm{B+A_2\overset{k_3}{\longrightarrow}AB + A}
+\end{eqnarray}
+\textbf{链的终止反应}为：
+\begin{equation}
+    \mathrm{A+B+M\overset{k_4}{\longrightarrow}AB+M}
+\end{equation}
+
+分析过程太复杂，可以看书100页。几个结论：
+\begin{equation}
+    [\mathrm{A}]\approx{\frac{[\mathrm{A}_{2}]}{[\mathrm{B}_{2}]^{1/2}}}\left({\frac{k_{1}k_{3}}{k_{2}k_{4}}}\right)^{1/2}
+\end{equation}
+
+\begin{equation}
+    \frac{\mathrm{d}[{\mathrm{B}}_{2}]}{\mathrm{d}t}\approx-[{\mathrm{A}}_{2}][{\mathrm{B}}_{2}]^{1/2}\left(\frac{k_{1}k_{2}k_{3}}{k_{4}}\right)^{1/2}.
+\end{equation}
+\begin{enumerate}
+    \item 链的激发反应速率越大，链的中断反应速率常数越小，自由基的浓度也越大。
+    \item 增大链的传递反应速率常数，会增大\([\mathrm{B_2}]\)的消耗速率。
+    \item 链的传递反应速率常数对自由基的浓度影响不大。因为由于其速率常数具有相同的量级且以一个比值的方式出现。
+\end{enumerate}
+
+压力足够高时，由于假设的\(4k_2 k_3[B_2]/(k_1 k_4[M]^2)\gg 1\)不再成立，上面的结论也不再可靠。
+
+\textbf{链式分支反应}是指消耗一个自由基而形成两个自由基组分的反应。链式分支反应对具有自传播特性的火焰起主导作用，这也是燃烧化学中最基本的特征。
 
 \end{multicols}
 
