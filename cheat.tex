@@ -1,4 +1,4 @@
-\documentclass[8pt,landscape]{article}
+\documentclass[10pt, landscape]{extarticle}
 \usepackage{ctex}
 \usepackage{multicol}
 \usepackage{calc}
@@ -11,6 +11,8 @@
 \usepackage{float}
 \usepackage{wrapfig}
 \usepackage{xcolor}
+
+\numberwithin{equation}{section}
 
 
 % To make this come out properly in landscape mode, do one of the following
@@ -46,7 +48,7 @@
 % if using A4 paper. (This probably isn't strictly necessary.)
 % If using another size paper, use default 1cm margins.
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
-	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{ \geometry{top=.2in,left=.2in,right=.2in,bottom=.2in} }
 	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
@@ -415,16 +417,16 @@ $$
 \subsection{传质的应用实例}
 \subsubsection{斯蒂芬问题}
 
-\begin{wrapfigure}{l}{.15\textwidth}
-    \includegraphics[width=.15\textwidth]{img/stefan.png}
-\end{wrapfigure}
+% \begin{figure}[H]
+%     \includegraphics[width=.3\textwidth]{img/stefan.png}
+% \end{figure}
 
 我们考虑液体A在玻璃圆通内保持一个固定的高度，假设B在A中不可溶解，由此圆柱中存在着一个B的滞止层。对于这个问题，A的质量通量为：
 
-\begin{equation}\tiny
+{\tiny\begin{equation}
     \dot{m}''_A = \frac{\rho \mathcal{D}_\mathrm{AB}}{L}\ln\left(\frac{1-Y_{A,\infty}}{1-Y_{A,i}}\right)
 \end{equation}
-
+}
 推导过程如下：
 {\scriptsize\color{gray}
 
@@ -643,6 +645,28 @@ $$
 
 \subsubsection{单分子反应机理}
 
+考虑第三体的作用,产物的生成速率应当等于激活的A分子浓度成一阶反应的速率常数：
+
+\begin{equation}
+    \frac{\dd[\mathrm{products}]}{\dd t}=k_\mathrm{uni}[\mathrm{A^*}]
+\end{equation}
+
+利用稳态近似,认为激活的A分子浓度不变,可以将A\(^*\)的净生成率表达成为:
+
+\begin{equation}
+    {\frac{\mathrm{d}[\mathrm{A}^{*}]}{\mathrm{d}t}}=k_{e}[\mathrm{A}][\mathrm{M}]-k_\mathrm{d e}[\mathrm{A}^{*}][\mathrm{M}]-k_{\mathrm{uni}}[\mathrm{A}^{*}].
+\end{equation}
+
+经过层层推导可以得到如下的结论:
+
+\begin{equation}\label{equ:unimol_react}
+    -\frac{\dd[\mathrm{A}]}{\dd t}=\frac{\dd[\mathrm{products}]}{\dd t} = k_\mathrm{app}[\mathrm{A}]
+\end{equation}其中\(k_\mathrm{app}\)被定义为单分子反应的\textbf{表观速率常数},计算公式为:
+
+\begin{equation}
+    k_\mathrm{app}=\frac{k_e[\mathrm{M}]}{(k_\mathrm{de}/k_\mathrm{uni})[\mathrm{M}]+1}
+\end{equation}
+
 \subsubsection{链式反应和链式分支反应}
 
 对于总包反应
@@ -681,7 +705,274 @@ $$
 
 压力足够高时，由于假设的\(4k_2 k_3[B_2]/(k_1 k_4[M]^2)\gg 1\)不再成立，上面的结论也不再可靠。
 
-\textbf{链式分支反应}是指消耗一个自由基而形成两个自由基组分的反应。链式分支反应对具有自传播特性的火焰起主导作用，这也是燃烧化学中最基本的特征。
+\textbf{链式分支反应}是指:\textit{消耗一个}自由基而\textit{形成两个}自由基组分的反应。链式分支反应对具有自传播特性的火焰起主导作用，这也是燃烧化学中最基本的特征。
+
+\textbf{化学时间尺度}
+
+\begin{enumerate}
+    \item 单分子反应
+    我们对单分子反应速率的表达式\ref{equ:unimol_react}进行积分，得到：
+    \begin{equation}
+        [\mathrm{A}](t)=[\mathrm{A}]_{0}\exp(-k_{\mathrm{app}}t)
+    \end{equation}其中[A]\(_0\)为组份A的初始浓度. 如果用RC电路定义特征时间的方法,我们可以得到\textbf{化学时间尺度}的表达式:
+    \begin{equation}
+        \tau_\mathrm{chem} = 1/k_\mathrm{app}
+    \end{equation}
+
+    \item 双分子反应
+    对于如下的反应
+    \[
+        \mathrm{A+B\rightarrow C+D}
+    \]
+    它的速率表达式为:
+    \begin{equation}
+        \frac{\dd [\mathrm{A}]}{\dd t}=-k_\mathrm{bimolec}\mathrm{[A][B]}
+    \end{equation}
+    A和B的浓度变化可以通过化学当量关系来联系, 经过推导之后最后得到结论:
+    \begin{equation}
+        \tau_{\mathrm{chem}}={\frac{\mathrm{ln}[e+(1-e)\mathrm{([A]_{0}/[B]_{0})}]}{([\mathrm{B}]_{0}-\mathrm{[A]}_{0})k_{\mathrm{bimodec}}}},
+    \end{equation}其中\(e=2.718\).
+
+    如果其中反应物浓度要比另一种大得多,比如B很大,那么上面的式子可以简化为:
+    \begin{equation}
+        \tau_\mathrm{chem}=\frac{1}{[\mathrm{B}]_0 k_\mathrm{bimolec}}
+    \end{equation}
+
+    \item 三分子反应
+    \[\mathrm{A+B+M\rightarrow C + M}\]
+    如果我们认为第三体浓度[M]是一个常数,我们可以得到和双分子反应类似的结论:
+    \begin{equation}
+        {\frac{\mathrm{d}[\mathrm{A}]}{\mathrm{d}t}}=(-k_{\mathrm{ter}}[\mathrm{M}])[\mathrm{A}][\mathrm{B}].
+    \end{equation}
+
+    \begin{equation}
+        \tau_{\mathrm{chem}}={\frac{\mathrm{ln}[e+(1-e)([\mathrm{A}]_{0}/[\mathrm{B}]_{0})]}{([\mathrm{B}]_{0}-[\mathrm{A}]_{0})k_{\mathrm{te}}[\mathrm{M}]}},
+    \end{equation}
+
+
+    类似地, 如果B的浓度远远大于A, 那么:
+    \begin{equation}
+        \tau_{\mathrm{chem}}=\frac{1}{[{\rm B}]_{0}[{\rm M}]k_{\mathrm{ter}}}.
+    \end{equation}
+\end{enumerate}
+
+\subsubsection{部分平衡}
+将\textit{快速反应}视作\textit{平衡态}处理可以简化化学动力学机理，从而无须写出所涉及自由基的速率方程。这种处理方法叫作部分\textbf{平衡近似}。
+
+\section{一些重要的化学机理}
+
+\subsection{概述}
+\subsection{\(\mathrm{H_2-O_2}\)系统}
+
+\begin{multicols}{2}
+{\fontsize{4}{1}\selectfont
+初始激发反应(第一个为高温, 第二个为其他温度):
+\begin{eqnarray}
+    \mathrm{H_2+M}&\to&\mathrm{H+H+M}\\
+    \mathrm{H_2+O_2}&\to&\mathrm{HO_2+H}\label{equ:activate}
+\end{eqnarray}
+包含有自由基 0,H 和 OH 的链式反应是:
+\begin{eqnarray}
+    \mathrm{H+O_2}&\to& \mathrm{O+OH}\label{equ:chain1}\\
+    \mathrm{O + H_2}&\to& \mathrm{H + OH}\\
+    \mathrm{H_2+OH}&\to& \mathrm{H_2O+H}\\
+    \mathrm{O+H_2O}&\to& \mathrm{OH+OH}\label{equ:chain4}
+\end{eqnarray}
+包含自由基 O,H 和 OH 自由基的链的中断反应是三分子化合反应
+\begin{eqnarray}
+    \mathrm{H+H+M}&\to&\mathrm{H_2+M}\\
+    \mathrm{O+O+M}&\to& \mathrm{O_2+M}\\
+    \mathrm{H+O+M}&\to& \mathrm{OH + M}\\
+    \mathrm{H + OH + M} &\to& \mathrm{H_2O + M}
+\end{eqnarray}
+
+过氧羟基和双氧水的反应也很重要, 当这个反应变得活跃是:
+\begin{equation}\label{equ:HO2}
+    \mathrm{H+O_2+M}\to \mathrm{HO_2 +M}
+\end{equation}
+
+下列反应和第二个反应的逆反应开始起作用:
+\begin{eqnarray}
+    \mathrm{HO_2+H} &\to& \mathrm{OH+OH} \\
+    \mathrm{HO_2+H} &\to& \mathrm{H_2O+O} \\
+    \mathrm{HO_2+O} &\to& \mathrm{O_2+OH} \\
+    \mathrm{HO_2+HO_2} &\to& \mathrm{H_2O_2+O_2} \\
+    \mathrm{HO_2+H_2} &\to& \mathrm{H_2O_2+H} \label{equ:H2O2}\\
+    \mathrm{H_2O_2+OH} &\to& \mathrm{H_2O+HO_2} \\
+    \mathrm{H_2O_2+H} &\to& \mathrm{H_2O+OH} \\
+    \mathrm{H_2O_2+H} &\to& \mathrm{HO_2+H_2} \\
+    \mathrm{H_2O_2+M} &\to& \mathrm{OH+OH+M}
+\end{eqnarray}
+}
+\end{multicols}
+关于书本图5.1爆照极限的分析(500$^\circ$C 这一条线来讨论爆炸行为):
+\begin{enumerate}
+    \item 小于1.5 mmHg, 无爆炸,这是因为~\ref{equ:activate}激发的步骤和后面的链式反应~\ref{equ:chain1}-\ref{equ:chain4}所产生的自由基被避免反应所消耗而中断.
+    \item 高于1.5 mmHg爆炸就会发生是因为\ref{equ:chain1}-\ref{equ:chain4}所产生的自由基超过了壁面的消耗速度(压力增加导致自由基的浓度呈线性增加，相应的反应速率呈几何增加。).
+    \item 高于50 mmHg时, 混合物又停止了爆炸的特性, 这是由于链式分支反应~\ref{equ:chain1}和低温下显著的链中断反应~\ref{equ:HO2}之间产生了竞争. 过氧羟基相对不活跃, \ref{equ:HO2}可以被看作是链中断反应, 产生的自由基扩散到了壁面被消耗.
+    \item 高于3000 mmHg时, \ref{equ:H2O2}加入到了链式分支反应中,引起了双氧水的链式反应过程.
+\end{enumerate}
+
+\subsection{一氧化碳的氧化}
+
+不含水时,一氧化碳的氧化非常缓慢, 少量水的影响非常大, 因为羟基很重要.
+
+\begin{eqnarray}
+    \mathrm{CO+O_2} &\to& \mathrm{CO_2+O} \\
+    \mathrm{O + H_2O} &\to& \mathrm{OH + OH} \\
+    \mathrm{CO + OH} &\to& \mathrm{CO_2 + H} \label{equ:CO_burn}\\
+    \mathrm{H + O_2} &\to& \mathrm{OH + O}
+\end{eqnarray}
+
+第一个反应激发链式反应, CO的实际氧化通过第三个反应完成.
+
+如果催化剂为氢气, 那么还会包括氢气和氧原子, 氢气和羟基的反应. 实质上, 在有氢的情况下,为了描述CO的氧化, 需要包含上面提到的所有氢氧反应. 此外, 在过氧羟基存在的基础上, 还需要包括它氧化CO生成水和二氧化碳的反应.
+
+\subsection{碳氢化合物的氧化}
+碳氢化合物的燃烧可以简单地分为两步：第一步包括燃料断裂生成一氧化碳；第二步是一氧化碳最终氧化成为二氧化碳。
+
+\subsubsection{链烷烃概况}
+
+链烷烃, aka. 石蜡类物质, 化学分子式\(\mathrm{C_n H_{2n+2}}\). 这里先讨论\(n>2\)的情况.
+\begin{enumerate}
+    \item  燃料分子受到O和H原子的撞击而分解，先分解成烯烃和氢。在有氧存在的情况
+下，氢就氧化成水。
+    \item 不饱和烯烃进一步氧化成为CO和\(\mathrm{H_2}\), 所有的\(\mathrm{H_2}\)都转化为水.
+    \item CO通过~\ref{equ:CO_burn}燃尽, 热量主要在这一步释放.
+\end{enumerate}
+
+具体展开如下:
+\begin{enumerate}
+    \item 薄弱的C-C键先于C-H键断裂, 产生碳氢自由基.
+    \item \textbf{脱氢}: 碳氢自由基进一步分解, 产生烯烃和氢原子.
+    \item 上一步中的氢原子进一步产生新的自由基(羟基和氧原子).
+    \item 自由基的累计开始了新的燃料分子被撞击的过程.
+    \item 生成的碳氢自由基进一步脱氢(基于\(\beta\)剪刀原则展开).
+    \item 烯烃由O原子撞击产生氧化, 生成甲酸基(HCO)和甲醛(H\(_2\)CO).
+    \item 甲基, 甲醛, 亚甲基氧化,
+    \item 按含湿的 CO 机理进行的一氧化碳的氧化.
+\end{enumerate}
+
+\textbf{\(\beta\)剪刀原则:} 断裂C-C或C-H键将是离开自由基位置的一个键(离开不成对电子的一个位置). 这是因为在自由基位置处的不成对电子加强了相邻的键, 导致了从这一位置向外移动了一个位置.
+
+\subsubsection{总包和准总包机理}
+
+一步总包:
+\begin{equation}
+    \mathrm{C}_x \mathrm{H}_y + (x+y/4)\mathrm{O_2} \to x\mathrm{CO_2} + y/2\mathrm{H_2O}
+\end{equation}
+
+四步反应模拟丙烷的氧化:
+\begin{enumerate}
+    \item \(\mathrm{C}_n \mathrm{H}_{2n+2} \to (n/2) \mathrm{C}_2 \mathrm{H}_4 + \mathrm{H}_2\)
+    \item \(\mathrm{C}_2\mathrm{H}_4 + \mathrm{O}_2 \to 2\mathrm{CO} + 2 \mathrm{H}_2\)
+    \item \(\mathrm{CO+\frac{1}{2}O_2\to CO_2}\)
+    \item \(\mathrm{H_2 + \frac{1}{2}O_2\to H_2O}\)
+\end{enumerate}
+
+\subsubsection{实际燃料及其替代物}
+
+\subsection{甲烷燃烧}
+\subsubsection{复杂机理}
+\subsubsection{高温反应途径分析}
+\begin{enumerate}
+    \item 主线从OH, O和H撞击CH\(_4\)产生甲基自由基开始;
+    \item 甲基自由基和氧原子产生甲醛;
+    \item 甲醛由OH, H和O撞击形成甲酸基;
+    \item 甲酸基通过三个反应形成CO;
+    \item CO变成CO\(_2\).
+\end{enumerate}
+
+除了这一途径, 还有一些其他途径:
+\begin{enumerate}
+    \item 甲基形成两种可能电子结构的亚甲基
+    \item 甲基形成甲醇, 然后变成甲醛.
+\end{enumerate}
+\subsubsection{低温反应途径分析}
+几个有趣现象:
+\begin{enumerate}
+    \item 存在较强的甲基重新变成甲烷的现象;
+    \item 通过甲醇, 出现了从甲基到甲醛的新途径;
+    \item 甲基变成了乙烷, 乙烷变成乙烯和乙炔然后变成一氧化碳和亚甲基(出现比初始弹琴化合物高的碳氢化合物是低温氧化过程的一个共同特点).
+\end{enumerate}
+
+\subsection{氮氧化物的形成}
+
+热力型机理在高温燃烧中起支配作用，当量比可以在很
+宽的范围内变化。而费尼莫机理在富燃料燃烧中特别重要。NO-中间体机理在很贫的燃
+料和低温燃烧过程中对 NO 的产生有很重要的作用。NNH 机理相对上面提到的机理是新
+提出的。针对预混火焰加和扩散火焰[27胸多方面的研究发展了前三种机理，而对于在射流
+混合反应器中贫燃料预混燃烧的研究，对全部四种机理作出了相应贡献[29]。要获得比在本
+节中提供的在燃烧过程中氮氧化物形成与控制的化学的更详细资料，读者可以参考 Dagaut
+等L3o]、Dean 和 Bozzelli 及 Miller 和 Bowman位等的综述文章。进一步的信息和参考文
+献参见第 15 章。
+
+\begin{enumerate}
+    \item \textbf{热力型机理}在高温燃烧中起支配作用，当量比可以在很宽的范围内变化。
+    \item \textbf{费尼莫机理}在富燃料燃烧中特别重要。
+    \item \textbf{N\(_2\)O-中间体机理}在很贫的燃料和低温燃烧过程中对 NO 的产生有很重要的作用。
+    \item \textbf{NNH机理}相对上面提到的机理是新提出的。
+\end{enumerate}
+
+\textbf{热力型机理, Zeldovich}:
+\begin{eqnarray}
+    \mathrm{O+N_2} &\leftrightarrow& \mathrm{NO + N}\\
+    \mathrm{N+O_2} &\leftrightarrow& \mathrm{NO + O}\\
+    \mathrm{N+OH} &\leftrightarrow& \mathrm{NO + H}
+\end{eqnarray}
+按理说这个反应会通过氧气, 羟基和氧原子与燃烧发生耦合. 但是由于一般只有在燃烧完全后, NO的形成才会明显, 所以他们一般不耦合. 在此情况下, 如果认为
+\begin{enumerate}
+    \item 反应尺度够长\(\to\)氮气, 氧气, 氧原子和羟基浓度处于平衡值;
+    \item NO浓度远小于平衡值\(\to\)逆反应忽略
+\end{enumerate}
+
+那么NO的生成就只和氧原子和氮气相关.
+
+当然在火焰区, 时间尺度小, 平衡假设不成立. 此时O处于超平衡浓度, 大大加快了NO的形成速率(有时归结为快速型NO机理, 考虑历史, 快速限定为费尼莫尔机理).
+由于活化能大, 所以高温下此机理才重要. 又由于时间尺度小于燃料氧化的时间尺度, 因此NO往往在火焰后的气体中产生.
+
+\textbf{N\(_2\)O-中间体机理}
+在贫燃料(\(\phi<0.8\))和低温的条件下, N\(_2\)O-中间体机理很重要 (燃气轮机制造商):
+
+\begin{eqnarray}
+    \mathrm{O + N_2 + M} &\leftrightarrow& \mathrm{N_2O + M}\\
+    \mathrm{H + N_2O} &\leftrightarrow& \mathrm{NO + NH}\\
+    \mathrm{O + N_2O} &\leftrightarrow& \mathrm{NO + NO}
+\end{eqnarray}
+
+
+\textbf{费尼莫儿机理/快速型NO}
+得名原因: 费尼莫尔最早发现 NO 在层流预混火焰的火焰区域中快速地产生，且是在热力型 NO 形成之前就已形成。
+\begin{eqnarray}
+    \mathrm{CH + H_2} &\leftrightarrow& \mathrm{HCN + N}\\
+    \mathrm{C + N_2} &\leftrightarrow& \mathrm{CN + N}
+\end{eqnarray}
+
+在当量比小于1.2时, HCN由下面的方法产生NO:
+
+\begin{eqnarray}
+    \mathrm{HCN + O} &\leftrightarrow& \mathrm{NCO + H} \\
+    \mathrm{NCO + H} &\leftrightarrow& \mathrm{HN + CO} \\
+    \mathrm{NH + H} &\leftrightarrow& \mathrm{N + H_2} \\
+    \mathrm{N + OH} &\leftrightarrow& \mathrm{NO + H}
+\end{eqnarray}
+
+当量比大于1.2时, 会比较复杂.
+
+如果上面的反应不快速的时候, NO会形成HCN, 然后反应就倒过来了, 氧化变成了还原.
+
+\textbf{NNH机理}: 
+
+对氢的燃烧, 大碳氢比燃料的燃烧很重要:
+
+\begin{eqnarray}
+    \mathrm{N_2 + H} &\leftrightarrow& \mathrm{NNH}\\
+    \mathrm{NNH + O} &\leftrightarrow& \mathrm{NO + NH}
+\end{eqnarray}
+
+\textbf{燃料氮}：
+
+燃料中含有的氮，这些氮形成的NO是燃料氮，也是一个重要的途径。
 
 \end{multicols}
 
