@@ -11,6 +11,9 @@
 \usepackage{float}
 \usepackage{wrapfig}
 \usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{array}
+
 
 \numberwithin{equation}{section}
 
@@ -80,10 +83,11 @@
 
 % Don't print section numbers
 % \setcounter{secnumdepth}{0}
+\setlength{\parskip}{0em}
 
 
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0pt plus 0.5ex}
+% \setlength{\parindent}{0pt}
+% \setlength{\parskip}{0pt plus 0.5ex}
 
 
 \newcommand{\dd}{\mathrm{d}}
@@ -93,6 +97,8 @@
 % -----------------------------------------------------------------------
 
 \begin{document}
+
+\setstretch{1.0}
 
 \raggedright
 \footnotesize
@@ -898,15 +904,6 @@ $$
 
 \subsection{氮氧化物的形成}
 
-热力型机理在高温燃烧中起支配作用，当量比可以在很
-宽的范围内变化。而费尼莫机理在富燃料燃烧中特别重要。NO-中间体机理在很贫的燃
-料和低温燃烧过程中对 NO 的产生有很重要的作用。NNH 机理相对上面提到的机理是新
-提出的。针对预混火焰加和扩散火焰[27胸多方面的研究发展了前三种机理，而对于在射流
-混合反应器中贫燃料预混燃烧的研究，对全部四种机理作出了相应贡献[29]。要获得比在本
-节中提供的在燃烧过程中氮氧化物形成与控制的化学的更详细资料，读者可以参考 Dagaut
-等L3o]、Dean 和 Bozzelli 及 Miller 和 Bowman位等的综述文章。进一步的信息和参考文
-献参见第 15 章。
-
 \begin{enumerate}
     \item \textbf{热力型机理}在高温燃烧中起支配作用，当量比可以在很宽的范围内变化。
     \item \textbf{费尼莫机理}在富燃料燃烧中特别重要。
@@ -972,7 +969,164 @@ $$
 
 \textbf{燃料氮}：
 
-燃料中含有的氮，这些氮形成的NO是燃料氮，也是一个重要的途径。
+燃料中含有的氮，这些氮形成的NO是燃料氮，也是一个重要的途径。煤里面的氮比较多,可能会生成HCN和NH\(_3\).后面的机理和快速型NO机理差不多.
+
+一氧化氮进入大气以后的事儿可以看看书146.
+
+\section{反应系统化学与热力学分析的耦合}
+\subsection{概述}
+\subsection{定压-定质量反应器}
+\subsubsection{守恒定律的应用}
+
+考虑焓的变化:
+\begin{equation}
+    \frac{\dot{Q}}{m} = \frac{\dd h}{\dd t}
+\end{equation}
+
+\[
+    \begin{aligned}
+        h&={\frac{H}{m}}=\sum_{i=1}^{N}N_{i}{\overline{{h_{i}}}}{}\\
+        {\frac{\mathrm{d}h}{\mathrm{d}t}}&={\frac{1}{m}}\left[\sum_{i}\left({\overline{{h}}}_{i}\,{\frac{\mathrm{d}N_{i}}{\mathrm{d}t}}\right)+\sum_{i}\left(N_{i}\,{\frac{\mathrm{d}{\overline{{h}}}_{i}}{\mathrm{d}t}}\right)\right].
+    \end{aligned}
+\]
+对于理想气体，我们可以写出：
+\[
+    {\frac{\mathrm{d}{\tilde{h}}_{i}}{\mathrm{d}t}}={\frac{\partial{\tilde{h}}_{i}}{\partial T}}{\frac{\mathrm{d}T}{\mathrm{d}t}}={\overline{{c}}}_{p,i}\,{\frac{\mathrm{d}T}{\mathrm{d}t}},
+\]
+对于物质的量的变化：
+\[
+    \begin{aligned}
+        N_i &= V[X_i]\\
+        \frac{\dd N_i}{\dd t} &\equiv V\dot{\omega}_i
+    \end{aligned}\]
+由此，把上面这些式子互相放在一起互相代一下，我们可以得到，关于温度的方程：
+\begin{equation}\color{red}\label{equ:reac_p_T}
+    {\frac{\mathrm{d}T}{\mathrm{d}t}}={\frac{({\dot{Q}}/V)-\sum_{i}({\bar{h}}_{i}{\dot{\omega}}_{i})}{\sum_{i}([X_{i}]{\overline{{c}}}_{p,i})}},
+\end{equation}其中的焓，可以用下面的方程来写：
+\begin{equation}
+    \overline{{{h}}}_{i}=\overline{{{h}}}_{f,i}^{o}+\sum_{T_\mathrm{ref}}^{T}\overline{{{c}}}_{p,i}\,\mathrm{d}T.
+\end{equation}
+
+对于体积的关系，我们需要运用质量守恒，首先，体积和摩尔浓度之间的关系是：
+\begin{equation}
+    V={\frac{m}{\sum_{i}([X_{i}]M W_{i})}}.
+\end{equation}
+摩尔分数的变化可以写作：
+\begin{equation}
+    {\frac{\mathrm{d}[X_{i}]}{\mathrm{d}t}}={\dot{\omega}}_{i}-[X_{i}]{\frac{1}{V}}{\frac{\mathrm{d}V}{\mathrm{d}t}},
+\end{equation}
+综合运用理想气体方程，消去\(\dd V/\dd t\)项，我们可以得到：
+
+\begin{equation}\color{red}\label{equ:reac_p_X}
+    {\frac{\mathrm{d}[X_{i}]}{\mathrm{d}t}}={\dot{\omega}}_{i}-[X_{i}]{\Biggl[}{\frac{\sum{\dot{\omega}}_{i}}{\sum_j [X_j]}}+{\frac{1}{T}}{\frac{\mathrm{d}T}{\mathrm{d}t}}{\Biggr]}.
+\end{equation}
+
+\subsubsection{反应器模型小结}
+
+除了公式~\ref{equ:reac_p_T}, \ref{equ:reac_p_X}以外，我们再补上两个初始条件，这个问题就完全闭合了。
+
+\textbf{柴油机 vs. 汽油机}: 按理说，定压定质量的反应容器温度应该更低，因此柴油机的效率看起来会比汽油机要更低一些，但是不能忘记的是，考虑到爆震/敲缸的问题，柴油机的压缩比能做到比汽油机高很多，所以综合考虑下来柴油机的效率会更加高一些。
+
+\subsection{定容-定质量反应器}
+\subsubsection{守恒定律的应用}
+过程和上次类似，不过是考虑内能的变化：
+\[
+    \frac{\mathrm{d}T}{\mathrm{d}t}=\frac{({\dot{Q}}/V)-\sum_i({\tilde{u}}_{i}{\dot{\omega}}_{i})}{\sum_{i}([X_{i}]{\overline{{{c}}}}_{\upsilon,i})}.
+\]
+对于理想气体，我们给他写成有关焓的形式：
+\begin{equation}\color{red}\label{equ:reac_v_T}
+    {\frac{\mathrm{d}T}{\mathrm{d}t}}={\frac{({\dot{Q}}/V)+R_{u}T\sum{\dot{\omega}}_{i}-\sum_{i}({\dot{h}}_{i}{\dot{\omega}}_{i})}{\sum_{i}[\left[X_{i}|({\overline{{c}}}_{p,i}-R_{u})\right]}}.
+\end{equation}
+
+关于摩尔浓度的变化，定容的反应器是不必多说的。压力的变化是一个我们很关心的问题，同样根据理想气体状态方程，压力的变化可以被写作：
+\begin{equation}\color{red}\label{equ:reac_v_P}
+    {\frac{\mathrm{d}P}{\mathrm{d}t}}=R_{u}T\sum_{i}{\dot{\omega}}_{i}+R_{u}\sum_{i}[X_{i}]{\frac{\mathrm{d}T}{\mathrm{d}t}},
+\end{equation}
+
+\subsubsection{反应器模型小结}
+除了上面的~\ref{equ:reac_v_T}以外，摩尔浓度的变化可以被写作：
+
+\begin{equation}\color{red}
+    {\frac{\mathrm{d}[X_{i}]}{\mathrm{d}t}}={\dot{\omega}}_{i}=f([X_{i}],T)\qquad i=1,\;2,\ldots,N
+\end{equation}
+
+我们再补两个初始条件，就完事儿了。
+
+\textbf{敲缸}：在电火花点火发动机中，如果在火焰到达之前，未燃燃料-空气混合物就发生均相反应，会引起敲缸，也就是自动点火。
+
+\subsection{全混反应器}
+\subsubsection{守恒定律的应用}
+
+如果我们忽略任何的扩散通量，对于某一特定物质流入流出的质量流的变化应当等于反应器内化学反应生成的该物质，亦即：
+\begin{equation}\color{red}\label{equ:reac_stir_omega}
+    \dot{\omega}_i MW_i V + \dot{m}(Y_{i, \mathrm{in}} - Y_{i, \mathrm{out}}) = 0\quad{\text{for }i=1,2,\ldots,N~\text{species}}
+\end{equation}
+
+对于化学反应部分，由于反应器内部组份处处相等，因此出口的部分应当和内部相同，亦即：
+\begin{equation}
+    \dot{\omega}_i = f([X_i]_{cv}, T) = f([X_i]_\mathrm{out}, T)
+\end{equation}
+
+其中质量分数与物质的量的浓度的关系为：
+\begin{equation}
+    Y_i = \frac{[X_i] MW_i}{\sum_{j=1}^N [X_j]MW_j}
+\end{equation}
+
+目前，对于每一个物质，我们都可以写出一个~\ref{equ:reac_stir_omega}，由此我们就有N个方程，如果我们认为入口流量和反应器体积已知，那么我们还缺一个额外的方程去确定反应器的能量状态。
+
+\begin{equation}\color{red}
+    \dot{Q}=\dot{m}\left(\sum_{i=1}^{N}Y_{i,\mathrm{out}}h_{i}(T)-\sum_{i=1}^{N}Y_{i,\mathrm{in}}h_{i}(T_{\mathrm{in}})\right),
+\end{equation}其中,
+\begin{equation}
+    h_{i}(T)=h_{f,i}^{o}+\int_{T_{i}(f),i}^{T}\mathrm{d}T.
+\end{equation}
+
+我们常常还会定义\textbf{平均停留时间}为：
+\begin{equation}
+    t_\mathrm{R} = \rho V/\dot{m}
+\end{equation}密度可以利用下面的公式来计算：
+\begin{equation}
+    \rho = P MW_\mathrm{mix}/R_u T
+\end{equation}
+
+\subsubsection{反应器模型小结}
+
+由于对于全混反应器，实质上是一个稳态问题，所以说我们就不需要求解ODEs只需要考虑一些非线性的代数方程了。
+
+\subsection{柱塞流反应器}
+\subsubsection{假设}
+\begin{itemize}
+    \item 稳态、稳定流动；
+    \item 没有轴向混合：在流动方向上分子扩散和湍流质量扩散都可以忽略；
+    \item 垂直于流动方向的参数都相等，一维问题；
+    \item 理想无粘流动：可以用欧拉方程关联压力和速度；
+    \item 理想气体。
+\end{itemize}
+
+\subsubsection{守恒定律的应用}
+
+\begin{table}[H]
+    \tiny
+    \centering
+    \begin{tabular}{>{\centering\arraybackslash}p{.08\textwidth}>{\centering\arraybackslash}p{.02\textwidth}>{\centering\arraybackslash}p{.1\textwidth}}
+        \hline
+        方程类型 & 方程数 & 包括的变量或导数\\
+        \hline
+        守恒：质量、动量、\newline 能量、组份 & \(3+N\) & \(\frac{\dd}{\dd x}(\rho, v_x, P, h, Y_i)\)\newline \(\dot{\omega_i}\) \\
+        化学反应 & \(N\) & \(\dot{\omega_i}\) \\
+        状态方程 & 1 & \(\frac{\dd}{\dd x}(\rho, P, T, MW_\mathrm{mix})\) \\
+        状态的热方程 & 1 & \(\frac{\dd}{\dd x}(h, T, Y_i)\) \\
+        混合物摩尔质量 & 1 & \(\frac{\dd}{\dd x}(MW_\mathrm{mix}, Y_i)\) \\
+        \hline
+    \end{tabular}
+\end{table}
+方程太多，变量太多，经过推导可以最后变成\(N+2\)个方程，一个是密度的导数，一个是温度的导数，\(N\)个是质量分数的导数。如果引入\textbf{停留时间}，那就再多一个方程：
+\[
+    \frac{\dd t_R}{\dd x}=\frac{1}{v_x}
+\]
+
+\section{反应流的简化守恒方程}
+\section{层流预混火焰}
 
 \end{multicols}
 
