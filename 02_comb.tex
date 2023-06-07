@@ -14,24 +14,39 @@
 $R_u=8315~\mathrm{J/(kmol\cdot K)}$, $R=R_u/\mathrm{MW}$, $\rho=1/v=m/V$.
 
 \subsubsection{状态热方程}
-\begin{eqnarray}
-    u&=&u(T,v)\\
-    h&=&h(T, P)
-\end{eqnarray}
-\begin{eqnarray}
-    \mathrm{d}u&=&\left({\frac{\partial u}{\partial T}}\right)_{v}\mathrm{d}T+\left({\frac{\partial u}{\partial v}}\right)_{T}\mathrm{d}v\\ 
-    \mathrm{d}h&=&\left({\frac{\partial h}{\partial T}}\right)_{p}\mathrm{d}T+\left({\frac{\partial h}{\partial P}}\right)_{T}\mathrm{d}P
-\end{eqnarray}
-\begin{eqnarray}
-    c_{v}&\equiv&\left(\frac{\partial u}{\partial T}\right)_{v}\\
-c_{p}&\equiv&\left({\frac{\partial h}{\partial T}}\right)_{P}
-\end{eqnarray}
+\begin{multicols}{2}
+    \tiny
+    \begin{eqnarray*}
+        u&=&u(T,v)\\
+        h&=&h(T, P)
+    \end{eqnarray*}
+    \begin{eqnarray*}
+        \mathrm{d}u&=&\left({\frac{\partial u}{\partial T}}\right)_{v}\mathrm{d}T+\left({\frac{\partial u}{\partial v}}\right)_{T}\mathrm{d}v\\ 
+        \mathrm{d}h&=&\left({\frac{\partial h}{\partial T}}\right)_{p}\mathrm{d}T+\left({\frac{\partial h}{\partial P}}\right)_{T}\mathrm{d}P
+    \end{eqnarray*}
+    \begin{eqnarray*}
+        c_{v}&\equiv&\left(\frac{\partial u}{\partial T}\right)_{v}\\
+    c_{p}&\equiv&\left({\frac{\partial h}{\partial T}}\right)_{P}
+    \end{eqnarray*}
+    
+    对于理想气体，$(\partial u/\partial v)_T$和$(\partial h/\partial P)_{T}$都为0。所以理想气体的状态热方程为：
+    \begin{eqnarray*}
+        u(T)-u_{\mathrm{ref}}&=&\int_{T_{\mathrm{ref}}}^{T}c_{v}\,\mathrm{d}T\\ 
+        h(T)-h_{\mathrm{ref}}&=&\int_{T_{\mathrm{ref}}}^{T}c_{p}\,\mathrm{d}T.
+    \end{eqnarray*}
+    Maxwell relations:
+    \begin{eqnarray*}
+        +\left(\frac{\pp T}{\pp V}\right)_{S} = -\left(\frac{\pp P}{\pp S}\right)_{V} &=& \frac{\pp^2 U}{\pp S \pp V} \\
+        +\left(\frac{\pp T}{\pp P}\right)_{S} = +\left(\frac{\pp V}{\pp S}\right)_{P} &=& \frac{\pp^2 H}{\pp S \pp P} \\
+        +\left(\frac{\pp S}{\pp V}\right)_{T} = +\left(\frac{\pp P}{\pp T}\right)_{V} &=& -\frac{\pp^2 F}{\pp T \pp V} \\
+        -\left(\frac{\pp S}{\pp P}\right)_{T} = +\left(\frac{\pp V}{\pp T}\right)_{P} &=& \frac{\pp^2 G}{\pp T \pp P}
+    \end{eqnarray*}
 
-对于理想气体，$(\partial u/\partial v)_T$和$(\partial h/\partial P)_{T}$都为0。所以理想气体的状态热方程为：
-\begin{eqnarray}
-    u(T)-u_{\mathrm{ref}}&=&\int_{T_{\mathrm{ref}}}^{T}c_{v}\,\mathrm{d}T\\ 
-    h(T)-h_{\mathrm{ref}}&=&\int_{T_{\mathrm{ref}}}^{T}c_{p}\,\mathrm{d}T.
-\end{eqnarray}
+    \begin{equation}
+        A = U-TS
+    \end{equation}
+\end{multicols}
+
 
 \subsubsection{理想气体混合物}
 组份$i$的摩尔分数$\chi_i$：
@@ -116,7 +131,7 @@ $$
 
 \textbf{参考温度：}$T_\mathrm{ref}=25^\circ \mathrm{C}$(298.15 K)，\textbf{参考压力：}$P_\mathrm{ref}=$1atm(101 325 Pa)。
 
-对于标准生成焓：元素最自然状态时的生成焓为0，比如氧气，氮气等。
+对于\textbf{标准生成焓}：元素最自然状态时的生成焓为0，比如氧气，氮气等。
 
 \subsubsection{燃烧焓和热值}
 \textbf{燃烧焓}定义为（反应物和产物\textit{都处于标准状态下}）：
@@ -175,7 +190,7 @@ $$
 对于开口系统，我们采用吉布斯函数，它的定义为 $G\equiv H-TS$。这是第二定律表示为$(\mathrm{d}G)_{T,P,m}\le 0$的形式。在平衡时，开口系统的第二定律可以写作$(\mathrm{d}G)_{T,P,m}=0$。
 
 {
-    \scriptsize\color{gray}
+    \scriptsize
     考虑广延量，理想气体的吉布斯方程为：
     \[
         G_{\mathrm{mix}}=\sum N_{i}\overline{{{g}}}_{i,T}=\sum N_{i}\bigl[\bar{g}_{i,T}^{0}+R_{u}T\ln\bigl(P_{i}/P^{0}\bigr)\bigr]
